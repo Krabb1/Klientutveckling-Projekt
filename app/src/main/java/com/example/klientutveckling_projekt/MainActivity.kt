@@ -36,12 +36,6 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav.setupWithNavController(navController)
 
-        //Har ej fått denna kod att funka, min AS ser inte id:et
-        //Idén var att hitta viewen i fragment_main_clicker som är jord och sätta en onClickListener på den för själva klicker spelet
-        //val clickableGround = findViewById<View>(R.id.ground_view)
-
-
-
 
     }
 }

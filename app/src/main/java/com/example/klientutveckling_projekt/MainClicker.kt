@@ -16,6 +16,13 @@ class MainClicker : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_main_clicker, container, false)
 
+        val clickableGround = view.findViewById<View>(R.id.ground_view)
+
+        clickableGround.setOnClickListener {
+            //Kod som registrerar klickningar
+
+        }
+
         return view
     }
 }
