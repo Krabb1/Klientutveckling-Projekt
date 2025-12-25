@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/leaderboard"
+        android:icon="@drawable/leaderboard_icon"
+        android:title="Leaderboard"/>
+
+    <item
+    android:id="@+id/mainClicker"
+    android:icon="@drawable/hand_home_icon"
+    android:title="Home"/>
+
+    <item
+        android:id="@+id/upgrades"
+        android:icon="@drawable/upgrade_icon"
+        android:title="Upgrades"/>
+</menu>

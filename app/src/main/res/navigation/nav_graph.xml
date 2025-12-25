@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainClicker">
+
+    <fragment
+        android:id="@+id/mainClicker"
+        android:name="com.example.klientutveckling_projekt.MainClicker"
+        android:label="MainClicker"
+        tools:layout="@layout/fragment_main_clicker" >
+        <action
+            android:id="@+id/action_mainClicker_to_leaderboard"
+            app:destination="@id/leaderboard" />
+        <action
+            android:id="@+id/action_mainClicker_to_upgrades"
+            app:destination="@id/upgrades" />
+    </fragment>
+    <fragment
+        android:id="@+id/leaderboard"
+        android:name="com.example.klientutveckling_projekt.Leaderboard"
+        android:label="Leaderboard"
+        tools:layout="@layout/fragment_leaderboard" />
+    <fragment
+        android:id="@+id/upgrades"
+        android:name="com.example.klientutveckling_projekt.Upgrades"
+        android:label="Upgrades"
+        tools:layout="@layout/fragment_upgrades" />
+</navigation>
