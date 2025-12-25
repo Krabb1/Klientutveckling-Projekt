@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav.setupWithNavController(navController)
 
-        val text = findViewById<TextView>(R.id.textView)
 
 
     }
