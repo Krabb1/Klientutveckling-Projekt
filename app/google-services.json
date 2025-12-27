@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "564910600938",
+    "project_id": "digging-inc",
+    "storage_bucket": "digging-inc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564910600938:android:8d65a523e811f33e6ddd93",
+        "android_client_info": {
+          "package_name": "com.example.klientutveckling_projekt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-DB8zcsie9tjpyBWPBqo5YnHSE3w91TE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
