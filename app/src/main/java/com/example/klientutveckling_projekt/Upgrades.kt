@@ -15,6 +15,8 @@ class Upgrades : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_upgrades, container, false)
 
+        view.findViewById<>()
+
         return view
     }
 }

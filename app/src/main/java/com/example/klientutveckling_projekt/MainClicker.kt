@@ -45,7 +45,7 @@ class MainClicker : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.clicks.collect { count ->
-                    clickCounter.text = "Count: $count"
+                    clickCounter.text = "Meters digged: $count m"
                 }
             }
         }
