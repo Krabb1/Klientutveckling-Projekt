@@ -1,6 +1,7 @@
 package com.example.klientutveckling_projekt
 
 import android.content.Context
+import androidx.compose.ui.input.key.Key
 import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
@@ -37,6 +38,14 @@ class ClickRepository(private val context: Context) {
         context.dataStore.edit {
             val current = it[Keys.METERS] ?: 0.0
             it[Keys.METERS] = (current - amount).coerceAtLeast(0.0)
+        }
+    }
+
+
+    suspend fun reset(){
+        context.dataStore.edit {
+            it[Keys.METERS] = 0.0
+            it[Keys.METERS_PER_SECOND] = 0.0
         }
     }
 }

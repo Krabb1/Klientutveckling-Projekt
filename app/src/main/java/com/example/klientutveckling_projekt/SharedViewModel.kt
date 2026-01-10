@@ -93,4 +93,8 @@ class SharedViewModel(
 
         return true
     }
+
+    suspend fun reset() {
+        repository.reset()
+    }
 }
