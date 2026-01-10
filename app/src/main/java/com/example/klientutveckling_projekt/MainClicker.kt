@@ -42,7 +42,7 @@ class MainClicker : Fragment() {
             }
         }
 
-        val settingsButton = view.findViewById<ImageButton>(R.id.settingsButton)
+        //val settingsButton = view.findViewById<ImageButton>(R.id.settingsButton)
 
 
         return view
