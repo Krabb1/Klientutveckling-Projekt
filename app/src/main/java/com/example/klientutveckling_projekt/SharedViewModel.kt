@@ -1,30 +1,45 @@
 package com.example.klientutveckling_projekt
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.example.klientutveckling_projekt.Upgrade
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
+class SharedViewModel(
+    private val repository: ClickRepository
+) : ViewModel() {
 
-//Detta är bara en experimentell klass med viewmodel, vet ej om det kommer behövas men la in den utifall.
-//Metod/metoder kommer behöva justeras efter behov
-class SharedViewModel(private val repository: ClickRepository) : ViewModel() {
+    private val _multiplier = MutableStateFlow(1.0)
+    val multiplier: StateFlow<Double> = _multiplier.asStateFlow()
 
-    val clicks: StateFlow<Int> = repository.clicks
+    private val _purchasedUpgrades = MutableStateFlow<Set<Int>>(emptySet())
+    val purchasedUpgrades: StateFlow<Set<Int>> = _purchasedUpgrades.asStateFlow()
+
+    val meters: StateFlow<Double> = repository.meters
         .stateIn(
             scope = viewModelScope,
-            started = kotlinx.coroutines.flow.SharingStarted.WhileSubscribed(5000),
-            initialValue = 0
+            started = SharingStarted.Eagerly,
+            initialValue = 0.0
         )
 
-
-
-    fun clicksIncrease(){
+    fun click() {
         viewModelScope.launch {
-            repository.incrementClicks()
+            repository.addMeters(_multiplier.value)
         }
+    }
+
+    fun buyUpgrade(upgrade: Upgrade): Boolean {
+        if (meters.value < upgrade.cost) return false
+        if (upgrade.id in _purchasedUpgrades.value) return false
+
+        viewModelScope.launch {
+            repository.subtractMeters(upgrade.cost)
+        }
+
+        _multiplier.value *= upgrade.multiplier
+        _purchasedUpgrades.value += upgrade.id
+
+        return true
     }
 }
