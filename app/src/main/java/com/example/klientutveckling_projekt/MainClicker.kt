@@ -42,8 +42,15 @@ class MainClicker : Fragment() {
             }
         }
 
-        //val settingsButton = view.findViewById<ImageButton>(R.id.settingsButton)
+        val metersPerSecondCounter = view.findViewById<TextView>(R.id.meterPerSecondsCounter)
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.metersPerSecond.collect { meters: Double ->
+                    metersPerSecondCounter.text = getString(R.string.meters_per_second, meters)
+                }
+            }
+        }
 
         return view
     }

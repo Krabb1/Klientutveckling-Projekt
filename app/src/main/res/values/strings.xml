@@ -6,4 +6,6 @@
     <string name="MetersDigged">Meters digged: %.2f</string>
     <string name="current_multiplier">Current Mult</string>
     <string name="current_multiplier_VALUE">x1.0</string>
+    <string name="settings_title">SETTINGS</string>
+    <string name="meters_per_second">Meters per second: %.2f</string>
 </resources>
