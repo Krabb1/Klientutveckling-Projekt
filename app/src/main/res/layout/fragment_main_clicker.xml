@@ -9,6 +9,8 @@
     tools:context=".MainClicker">
 
 
+
+
     <LinearLayout
         android:id="@+id/LinearLayout_within_constraintLayout"
         android:layout_width="match_parent"
@@ -31,6 +33,23 @@
 
 
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/settingsButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/settings_symbol"
+            android:scaleType="centerInside"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/click_counter"
