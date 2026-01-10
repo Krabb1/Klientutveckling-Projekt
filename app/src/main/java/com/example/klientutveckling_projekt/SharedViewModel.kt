@@ -18,7 +18,7 @@ class SharedViewModel(
         Upgrade(2, "Stronger Drill", "Dig deeper", 1.25, 25.0),
         Upgrade(3, "Turbo Mode", "Big boost", 1.5, 50.0),
         Upgrade(4, "Mega Drill", "Huge boost", 2.0, 100.0),
-        Upgrade(5, "AutoDriller", "Passive drilling", 1.0, 10.0, 5.0)
+        Upgrade(5, "AutoDriller", "Passive drilling", 1.0, 10.0, 1.0)
     )
     private val _purchasedUpgrades = MutableStateFlow<Set<Int>>(emptySet())
     val purchasedUpgrades: StateFlow<Set<Int>> = _purchasedUpgrades.asStateFlow()
