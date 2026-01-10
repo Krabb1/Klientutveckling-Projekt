@@ -32,7 +32,7 @@
         tools:layout="@layout/fragment_upgrades" />
     <fragment
         android:id="@+id/settings"
-        android:name="com.example.klientutveckling_projekt.settings"
-        android:label="Settings"
+        android:name="com.example.klientutveckling_projekt.Settings"
+        android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

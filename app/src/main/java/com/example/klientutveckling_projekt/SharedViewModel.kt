@@ -3,6 +3,7 @@ package com.example.klientutveckling_projekt
 import com.example.klientutveckling_projekt.Upgrade
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -16,7 +17,8 @@ class SharedViewModel(
         Upgrade(1, "Faster Clicks", "More meters per click", 1.1, 10.0),
         Upgrade(2, "Stronger Drill", "Dig deeper", 1.25, 25.0),
         Upgrade(3, "Turbo Mode", "Big boost", 1.5, 50.0),
-        Upgrade(4, "Mega Drill", "Huge boost", 2.0, 100.0)
+        Upgrade(4, "Mega Drill", "Huge boost", 2.0, 100.0),
+        Upgrade(5, "AutoDriller", "Passive drilling", 1.0, 10.0, 5.0)
     )
     private val _purchasedUpgrades = MutableStateFlow<Set<Int>>(emptySet())
     val purchasedUpgrades: StateFlow<Set<Int>> = _purchasedUpgrades.asStateFlow()
@@ -41,9 +43,37 @@ class SharedViewModel(
             initialValue = 0.0
         )
 
+    val metersPerSecond: StateFlow<Double> = repository.metersPerSeconds.stateIn(
+        viewModelScope,
+        SharingStarted.Eagerly,
+        0.0
+    )
+
+    init {
+        startPassiveIncome()
+    }
+
+    private fun startPassiveIncome() {
+        viewModelScope.launch {
+            while (true){
+                delay(1000)
+                val mps = metersPerSecond.value
+                if (mps > 0) {
+                    repository.addMeters(mps)
+                }
+            }
+        }
+    }
+
     fun click() {
         viewModelScope.launch {
             repository.addMeters(multiplier.value)
+        }
+    }
+
+    fun addPassiveUpgrade(amount: Double){
+        viewModelScope.launch {
+            repository.addMetersPerSecond(amount)
         }
     }
 
@@ -53,6 +83,10 @@ class SharedViewModel(
 
         viewModelScope.launch {
             repository.subtractMeters(upgrade.cost)
+
+            if (upgrade.metersPerSecondBonus > 0) {
+                repository.addMetersPerSecond(upgrade.metersPerSecondBonus)
+            }
         }
 
         _purchasedUpgrades.value += upgrade.id

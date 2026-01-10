@@ -5,5 +5,6 @@ data class Upgrade(
     val name: String,
     val description: String,
     val multiplier: Double,
-    val cost: Double
+    val cost: Double,
+    val metersPerSecondBonus: Double = 0.0
 )

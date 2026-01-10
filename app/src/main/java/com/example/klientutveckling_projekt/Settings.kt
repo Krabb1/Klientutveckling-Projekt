@@ -1,15 +1,15 @@
 package com.example.klientutveckling_projekt
 
-import androidx.fragment.app.Fragment
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import kotlin.getValue
 
 
-class Settings: Fragment() {
-
+class Settings : Fragment() {
 
     private val viewModel: SharedViewModel by activityViewModels {
         ViewModelFactory(ClickRepository(requireContext()))
@@ -19,12 +19,11 @@ class Settings: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
 
 
 
         return view
     }
-
 }
