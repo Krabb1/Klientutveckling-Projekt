@@ -19,12 +19,7 @@ class Upgrades : Fragment() {
         ViewModelFactory(ClickRepository(requireContext()))
     }
 
-    private val allUpgrades = listOf(
-        Upgrade(1, "Faster Clicks", "More meters per click", 1.1, 10.0),
-        Upgrade(2, "Stronger Drill", "Dig deeper", 1.25, 25.0),
-        Upgrade(3, "Turbo Mode", "Big boost", 1.5, 50.0),
-        Upgrade(4, "Mega Drill", "Huge boost", 2.0, 100.0)
-    )
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,10 +37,18 @@ class Upgrades : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.purchasedUpgrades.collect { purchased ->
-                val available = allUpgrades.filterNot { it.id in purchased }
+                val available = viewModel.allUpgrades.filterNot { it.id in purchased }
                 adapter.setUpgrades(available)
             }
         }
+
+        val multiplierInUpgradestab = view.findViewById<TextView>(R.id.textCurrentMultiplierValue)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.multiplier.collect { meters ->
+                multiplierInUpgradestab.text = "%.2f m".format(meters)
+            }
+        }
+
 
         val currentMetersDigged = view.findViewById<TextView>(R.id.meterValueXML)
 

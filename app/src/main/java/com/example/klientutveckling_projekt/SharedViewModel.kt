@@ -10,11 +10,29 @@ class SharedViewModel(
     private val repository: ClickRepository
 ) : ViewModel() {
 
-    private val _multiplier = MutableStateFlow(1.0)
-    val multiplier: StateFlow<Double> = _multiplier.asStateFlow()
 
+
+    public val allUpgrades = listOf(
+        Upgrade(1, "Faster Clicks", "More meters per click", 1.1, 10.0),
+        Upgrade(2, "Stronger Drill", "Dig deeper", 1.25, 25.0),
+        Upgrade(3, "Turbo Mode", "Big boost", 1.5, 50.0),
+        Upgrade(4, "Mega Drill", "Huge boost", 2.0, 100.0)
+    )
     private val _purchasedUpgrades = MutableStateFlow<Set<Int>>(emptySet())
     val purchasedUpgrades: StateFlow<Set<Int>> = _purchasedUpgrades.asStateFlow()
+
+    val multiplier: StateFlow<Double> = purchasedUpgrades
+        .map{purchasedIds ->
+            allUpgrades.filter {it.id in purchasedIds}.fold(1.0){acc, upgrade ->
+                acc *upgrade.multiplier
+            }
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = 1.0
+        )
+    private val _multiplier = MutableStateFlow(1.0)
 
     val meters: StateFlow<Double> = repository.meters
         .stateIn(
@@ -25,7 +43,7 @@ class SharedViewModel(
 
     fun click() {
         viewModelScope.launch {
-            repository.addMeters(_multiplier.value)
+            repository.addMeters(multiplier.value)
         }
     }
 
@@ -37,7 +55,6 @@ class SharedViewModel(
             repository.subtractMeters(upgrade.cost)
         }
 
-        _multiplier.value *= upgrade.multiplier
         _purchasedUpgrades.value += upgrade.id
 
         return true
