@@ -36,7 +36,7 @@ class MainClicker : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.meters.collect { meters: Double ->
-                    meterCounter.text = "Meters digged: %.2f m".format(meters)
+                    meterCounter.text = getString(R.string.MetersDigged, meters)
                 }
             }
         }

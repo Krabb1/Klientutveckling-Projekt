@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 
 class Upgrades : Fragment() {
 
@@ -42,6 +44,14 @@ class Upgrades : Fragment() {
             viewModel.purchasedUpgrades.collect { purchased ->
                 val available = allUpgrades.filterNot { it.id in purchased }
                 adapter.setUpgrades(available)
+            }
+        }
+
+        val currentMetersDigged = view.findViewById<TextView>(R.id.meterValueXML)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.meters.collect { meters ->
+                currentMetersDigged.text = "%.2f m".format(meters)
             }
         }
 
