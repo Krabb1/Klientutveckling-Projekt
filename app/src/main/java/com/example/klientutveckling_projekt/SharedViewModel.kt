@@ -9,7 +9,11 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.first
 
-
+/**
+ * SharedViewModel klassen som kopplar alla fragments logik
+ *
+ * Ansvarar för spellogiken, skapa med ViewModelFactory och injecera en repository
+ */
 class SharedViewModel(
     private val repository: ClickRepository
 ) : ViewModel() {
@@ -17,6 +21,10 @@ class SharedViewModel(
 private companion object{
     private const val MAX_OFFLINEPROGRESS: Long = 8*60*60
 }
+    init {
+        applyOfflineProgress()
+        startPassiveIncome()
+    }
 
     public val allUpgrades = listOf(
         Upgrade(1, "Faster Clicks", "More meters per click", 1.1, 10.0),
@@ -25,9 +33,6 @@ private companion object{
         Upgrade(4, "Mega Drill", "Huge boost", 2.0, 100.0),
         Upgrade(5, "AutoDriller", "Passive drilling", 1.0, 10.0, 1.0)
     )
-
-
-    private val _multiplier = MutableStateFlow(0)
 
     val purchasedUpgrades: StateFlow<Set<Int>> = repository.purchasedUpgrades
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptySet())
@@ -57,13 +62,11 @@ private companion object{
         0.0
     )
 
-
-
-    init {
-        applyOfflineProgress()
-        startPassiveIncome()
-    }
-
+    /**
+     * Körs i Init block
+     *
+     * Startar klockan för passiv inkomst, mängden är baserad på uppgraderingar
+     */
     private fun startPassiveIncome() {
         viewModelScope.launch {
             while (true){
@@ -76,6 +79,11 @@ private companion object{
         }
     }
 
+    /**
+     * Lägger till den mängd meter som användaren har tjänat medan dem är offline
+     *
+     *
+     */
     private fun applyOfflineProgress(){
         viewModelScope.launch {
             try {
@@ -109,20 +117,27 @@ private companion object{
         }
     }
 
-
-
+    /**
+     * Funktionen som kallas när användare klickar på spelytan
+     *
+     * Delegerar vidare till ClickRepository för persistent lagring
+     */
     fun click() {
         viewModelScope.launch {
             repository.addMeters(multiplier.value)
         }
     }
 
-    fun addPassiveUpgrade(amount: Double){
-        viewModelScope.launch {
-            repository.addMetersPerSecond(amount)
-        }
-    }
-
+    /**
+     * Kallas när användare försöker köpa en upgradering
+     *
+     * Har felhantering för felaktig mängd av valuta samt om uppgradering redan är köpt
+     *
+     * Delegerar till ClickRepository för persistent lagring
+     *
+     * @property upgrade Tar emot en typ av Upgrade
+     * @return Returnerar en Boolean om köpet gick igenom
+     */
     fun buyUpgrade(upgrade: Upgrade): Boolean {
         if (meters.value < upgrade.cost) return false
         if (upgrade.id in purchasedUpgrades.value) return false

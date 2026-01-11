@@ -15,7 +15,11 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlin.getValue
 
-
+/**
+ * Fragmentet för inställningar i appen
+ *
+ * Ansvarar för att återställa viktig info inom appen
+ */
 class Settings : Fragment() {
 
     val job = Job()
