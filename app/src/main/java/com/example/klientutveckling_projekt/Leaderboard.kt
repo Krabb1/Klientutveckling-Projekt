@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -100,11 +99,6 @@ class Leaderboard : Fragment(R.layout.fragment_leaderboard) {
         )
         leaderboardRef.child(userId).setValue(userData)
     }
-
-//    fun updateScore(newScore: Int) {
-//        val userId = getOrCreateUserId()
-//        leaderboardRef.child(userId).child("score").setValue(newScore)
-//    }
 
     /**
      * Hämtar leaderboard-data från Firebase
