@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +17,8 @@ class MainClicker : Fragment() {
 
     private lateinit var repository: ClickRepository
 
+    private lateinit var leaderboardRepository: LeaderboardRepository
+
     private val viewModel: SharedViewModel by viewModels{
         ViewModelFactory(repository)
     }
@@ -25,6 +26,7 @@ class MainClicker : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         repository = ClickRepository(requireContext())
+        leaderboardRepository = LeaderboardRepository(requireContext())
     }
 
     override fun onCreateView(
@@ -46,11 +48,32 @@ class MainClicker : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.clicks.collect { count ->
                     clickCounter.text = "Meters digged: $count m"
+                    // Uppdatera leaderboard
+                    leaderboardRepository.updateScore(count)
                 }
             }
         }
 
-
         return view
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
