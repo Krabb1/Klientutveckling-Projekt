@@ -47,12 +47,11 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav.setupWithNavController(navController)
 
-    }
-
-    override fun onDestroy() {
         repository = ClickRepository(applicationContext)
 
     }
+
+
 
     override fun onStop() {
         super.onStop()

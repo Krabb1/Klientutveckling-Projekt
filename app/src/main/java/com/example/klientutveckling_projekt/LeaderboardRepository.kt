@@ -12,10 +12,10 @@ class LeaderboardRepository(context: Context) {
     private val database = FirebaseDatabase.getInstance().getReference("leaderboard")
     private val prefs = context.getSharedPreferences("leaderboard_prefs", Context.MODE_PRIVATE)
     private val userId: String = prefs.getString("user_id", null)
-        ?: throw IllegalStateException("UserId saknas. Skapa konto först.")
+        ?: "Guest"
 
     // Uppdaterar användarens score i Firebase
-    fun updateScore(score: Int) {
+    fun updateScore(score: Double) {
         database.child(userId).child("score").setValue(score)
     }
 
