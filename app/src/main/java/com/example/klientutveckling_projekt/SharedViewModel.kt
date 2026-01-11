@@ -23,6 +23,8 @@ class SharedViewModel(
     private val _purchasedUpgrades = MutableStateFlow<Set<Int>>(emptySet())
     val purchasedUpgrades: StateFlow<Set<Int>> = _purchasedUpgrades.asStateFlow()
 
+    private val _multiplier = MutableStateFlow(0)
+    //val multiplier = _multiplier.asStateFlow()
     val multiplier: StateFlow<Double> = purchasedUpgrades
         .map{purchasedIds ->
             allUpgrades.filter {it.id in purchasedIds}.fold(1.0){acc, upgrade ->
@@ -34,7 +36,9 @@ class SharedViewModel(
             started = SharingStarted.Eagerly,
             initialValue = 1.0
         )
-    private val _multiplier = MutableStateFlow(1.0)
+
+
+
 
     val meters: StateFlow<Double> = repository.meters
         .stateIn(
@@ -94,7 +98,9 @@ class SharedViewModel(
         return true
     }
 
+    // LÄGG TILL RESET FÖR MULTIPLIER OXÅ
     suspend fun reset() {
         repository.reset()
+
     }
 }
