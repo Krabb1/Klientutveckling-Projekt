@@ -22,7 +22,11 @@ import kotlinx.coroutines.launch
 import kotlin.getValue
 import androidx.fragment.app.activityViewModels
 
-
+/**
+ * MainActivity som hostar bottom navigation drawer
+ *
+ *
+ */
 class MainActivity : AppCompatActivity() {
 
     lateinit var repository: ClickRepository
@@ -52,7 +56,11 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
+    /**
+     * Överskuggar onStop metoden från Activity
+     *
+     * Får ClickRepository att spara den tid vid punkten då appen kallar onStop, säkert även om appen kraschar
+     */
     override fun onStop() {
         super.onStop()
 
