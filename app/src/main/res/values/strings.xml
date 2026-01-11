@@ -2,7 +2,7 @@
     <string name="app_name">Klientutveckling-Projekt</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="upgradesTitle">UPGRADES</string>
-    <string name="meters_digged_format">Total Meters: %.2f</string>
+    <string name="meters_digged_formats">Total Meters: %.2f</string>
     <string name="meters_per_second_format">Meters / Second: %.2f</string>
     <string name="current_multiplier">Multiplier</string>
     <string name="current_multiplier_VALUE">x1.0</string>

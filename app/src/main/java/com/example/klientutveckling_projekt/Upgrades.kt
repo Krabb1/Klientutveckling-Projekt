@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
@@ -39,12 +41,15 @@ class Upgrades : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.purchasedUpgrades.collect { purchased ->
-                val available = viewModel.allUpgrades.filterNot { it.id in purchased }
-                adapter.setUpgrades(available)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.purchasedUpgrades.collect { purchased ->
+                    val available = viewModel.allUpgrades.filterNot { it.id in purchased }
+                    adapter.setUpgrades(available)
+                }
             }
         }
+
 
         val multiplierInUpgradestab = view.findViewById<TextView>(R.id.textCurrentMultiplierValue)
         viewLifecycleOwner.lifecycleScope.launch {

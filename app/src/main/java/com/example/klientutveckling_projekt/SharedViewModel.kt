@@ -155,7 +155,9 @@ private companion object{
         return true
     }
 
-
+    /**
+     * Delegerar till ClickRepositorys reset metod
+     */
     suspend fun reset() {
 
 

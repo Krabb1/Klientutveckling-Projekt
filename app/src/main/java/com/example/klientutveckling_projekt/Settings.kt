@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,12 +40,24 @@ class Settings : Fragment() {
         val resetButton = view.findViewById<Button>(R.id.resetButton)
 
         resetButton.setOnClickListener {
-            uiScope.launch(Dispatchers.IO) {
-                viewModel.reset()
-            }
+            showPopUpMessageOnResetButton()
         }
 
         return view
+    }
+
+    private fun showPopUpMessageOnResetButton(){
+        AlertDialog.Builder(requireContext())
+            .setTitle("Reset progress?")
+            .setMessage("This will permanently delete all your progress.")
+            .setPositiveButton("Reset") { _, _ ->
+                uiScope.launch(Dispatchers.IO) {
+                    viewModel.reset()
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+
     }
 
     override fun onDestroy() {

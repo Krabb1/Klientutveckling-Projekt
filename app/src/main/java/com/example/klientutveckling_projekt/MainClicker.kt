@@ -61,7 +61,7 @@ class MainClicker : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.meters.collect { meters ->
                     meterCounter.text =
-                        getString(R.string.meters_digged_format, meters)
+                        getString(R.string.meters_digged_formats, meters)
 
                     leaderboardRepository.updateScore(meters)
                 }
@@ -77,7 +77,7 @@ class MainClicker : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.metersPerSecond.collect { metersPerSecond ->
                     metersPerSecondCounter.text =
-                        getString(R.string.meters_per_second_format, metersPerSecond)
+                        getString(R.string.meters_per_second, metersPerSecond)
                 }
             }
         }
