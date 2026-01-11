@@ -13,6 +13,8 @@ class ClickRepository(private val context: Context) {
     private object Keys {
         val METERS = doublePreferencesKey("meters")
         val METERS_PER_SECOND = doublePreferencesKey("meters_per_second")
+
+        val MULTI = doublePreferencesKey("multiplier")
     }
 
     val meters: Flow<Double> = context.dataStore.data
@@ -20,6 +22,8 @@ class ClickRepository(private val context: Context) {
 
     val metersPerSeconds: Flow<Double> = context.dataStore.data
         .map { it[Keys.METERS_PER_SECOND] ?: 0.0 }
+
+
 
     suspend fun addMeters(amount: Double) {
         context.dataStore.edit {

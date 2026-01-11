@@ -24,6 +24,7 @@ class SharedViewModel(
     val purchasedUpgrades: StateFlow<Set<Int>> = _purchasedUpgrades.asStateFlow()
 
     private val _multiplier = MutableStateFlow(0)
+
     //val multiplier = _multiplier.asStateFlow()
     val multiplier: StateFlow<Double> = purchasedUpgrades
         .map{purchasedIds ->
@@ -100,6 +101,8 @@ class SharedViewModel(
 
     // LÄGG TILL RESET FÖR MULTIPLIER OXÅ
     suspend fun reset() {
+
+
         repository.reset()
 
     }
