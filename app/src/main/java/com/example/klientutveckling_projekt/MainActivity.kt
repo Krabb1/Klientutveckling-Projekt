@@ -10,13 +10,24 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
+import kotlin.getValue
+import androidx.fragment.app.activityViewModels
+
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var repository: ClickRepository
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -39,7 +50,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        repository = ClickRepository(applicationContext)
 
-        super.onDestroy()
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        lifecycleScope.launch {
+            repository.updateLastActive(System.currentTimeMillis())
+        }
     }
 }

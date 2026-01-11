@@ -15,4 +15,9 @@
         android:id="@+id/upgrades"
         android:icon="@drawable/upgrade_icon"
         android:title="Upgrades"/>
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settings_symbol"
+        android:title="Settings"/>
 </menu>

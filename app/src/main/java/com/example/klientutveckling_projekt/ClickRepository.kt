@@ -1,21 +1,95 @@
 package com.example.klientutveckling_projekt
 
 import android.content.Context
+import androidx.compose.ui.input.key.Key
+import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class ClickRepository(private val context: Context) {
 
-    val clicks: Flow<Int> = context.dataStore.data
-        .map { preferences ->
-            preferences[ClickKeys.CLICKS] ?: 0
-        }
+    private object Keys {
+        val METERS = doublePreferencesKey("meters")
+        val METERS_PER_SECOND = doublePreferencesKey("meters_per_second")
 
-    suspend fun incrementClicks() {
-        context.dataStore.edit { preferences ->
-            val current = preferences[ClickKeys.CLICKS] ?: 0
-            preferences[ClickKeys.CLICKS] = current + 1
+        //val MULTI = doublePreferencesKey("multiplier")
+
+        val LAST_ACTIVE = longPreferencesKey("last_active_timestamp")
+
+        val PURCHASED_UPGRADES = stringSetPreferencesKey("purchased_upgrades")
+    }
+
+    val meters: Flow<Double> = context.dataStore.data
+        .map { it[Keys.METERS] ?: 0.0 }
+
+    val metersPerSeconds: Flow<Double> = context.dataStore.data
+        .map { it[Keys.METERS_PER_SECOND] ?: 0.0 }
+
+    /*val multiplier: Flow<Double> = context.dataStore.data
+        .map { it[Keys.MULTI] ?: 0.0 }*/
+
+    val purchasedUpgrades: Flow<Set<Int>> = context.dataStore.data.map { prefs ->
+        prefs[Keys.PURCHASED_UPGRADES]
+            ?.map { it.toInt() }
+            ?.toSet()
+            ?:emptySet()
+    }
+
+    suspend fun addMeters(amount: Double) {
+        context.dataStore.edit {
+            val current = it[Keys.METERS] ?: 0.0
+            it[Keys.METERS] = current + amount
+        }
+    }
+
+    suspend fun addMetersPerSecond(amount: Double){
+        context.dataStore.edit {
+            it[Keys.METERS_PER_SECOND] = (it[Keys.METERS_PER_SECOND] ?: 0.0) + amount
+        }
+    }
+
+    suspend fun addPurchasedUpgrade(id: Int){
+        context.dataStore.edit {
+            val current = it[Keys.PURCHASED_UPGRADES] ?: emptySet()
+            it[Keys.PURCHASED_UPGRADES] = current + id.toString()
+        }
+    }
+
+    suspend fun subtractMeters(amount: Double) {
+        context.dataStore.edit {
+            val current = it[Keys.METERS] ?: 0.0
+            it[Keys.METERS] = (current - amount).coerceAtLeast(0.0)
+        }
+    }
+
+    suspend fun updateLastActive(timeStamp: Long){
+        context.dataStore.edit {
+            it[Keys.LAST_ACTIVE] = timeStamp
+        }
+    }
+
+    suspend fun getLastActiveTime(): Long = context.dataStore.data
+        .map { prefs -> prefs[Keys.LAST_ACTIVE] ?: 0L }
+        .first()
+
+    suspend fun setLastActiveTime(timeStamp: Long){
+        context.dataStore.edit { prefs ->
+            prefs[Keys.LAST_ACTIVE] = timeStamp
+        }
+    }
+
+    suspend fun getMetersPerSecondOnce(): Double = context.dataStore.data
+        .map { prefs -> prefs[Keys.METERS_PER_SECOND] ?: 0.0}.first()
+
+
+    suspend fun reset(){
+        context.dataStore.edit {
+            it.clear()
         }
     }
 }

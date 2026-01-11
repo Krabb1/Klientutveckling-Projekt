@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainClicker_to_upgrades"
             app:destination="@id/upgrades" />
+        <action
+            android:id="@+id/action_mainClicker_to_settings"
+            app:destination="@id/settings" />
     </fragment>
     <fragment
         android:id="@+id/leaderboard"
@@ -27,4 +30,9 @@
         android:name="com.example.klientutveckling_projekt.Upgrades"
         android:label="Upgrades"
         tools:layout="@layout/fragment_upgrades" />
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.klientutveckling_projekt.Settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
