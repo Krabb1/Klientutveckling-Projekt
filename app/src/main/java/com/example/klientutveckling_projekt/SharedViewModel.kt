@@ -20,8 +20,12 @@ class SharedViewModel(
         Upgrade(4, "Mega Drill", "Huge boost", 2.0, 100.0),
         Upgrade(5, "AutoDriller", "Passive drilling", 1.0, 10.0, 1.0)
     )
-    private val _purchasedUpgrades = MutableStateFlow<Set<Int>>(emptySet())
-    val purchasedUpgrades: StateFlow<Set<Int>> = _purchasedUpgrades.asStateFlow()
+
+
+    private val _multiplier = MutableStateFlow(0)
+
+    val purchasedUpgrades: StateFlow<Set<Int>> = repository.purchasedUpgrades
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptySet())
 
     val multiplier: StateFlow<Double> = purchasedUpgrades
         .map{purchasedIds ->
@@ -34,7 +38,6 @@ class SharedViewModel(
             started = SharingStarted.Eagerly,
             initialValue = 1.0
         )
-    private val _multiplier = MutableStateFlow(1.0)
 
     val meters: StateFlow<Double> = repository.meters
         .stateIn(
@@ -48,6 +51,8 @@ class SharedViewModel(
         SharingStarted.Eagerly,
         0.0
     )
+
+
 
     init {
         startPassiveIncome()
@@ -79,18 +84,26 @@ class SharedViewModel(
 
     fun buyUpgrade(upgrade: Upgrade): Boolean {
         if (meters.value < upgrade.cost) return false
-        if (upgrade.id in _purchasedUpgrades.value) return false
+        if (upgrade.id in purchasedUpgrades.value) return false
 
         viewModelScope.launch {
             repository.subtractMeters(upgrade.cost)
+            repository.addPurchasedUpgrade(upgrade.id)
 
             if (upgrade.metersPerSecondBonus > 0) {
                 repository.addMetersPerSecond(upgrade.metersPerSecondBonus)
             }
         }
 
-        _purchasedUpgrades.value += upgrade.id
 
         return true
+    }
+
+
+    suspend fun reset() {
+
+
+        repository.reset()
+
     }
 }
