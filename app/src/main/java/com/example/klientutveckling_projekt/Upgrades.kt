@@ -1,12 +1,10 @@
 package com.example.klientutveckling_projekt
 
-import com.example.klientutveckling_projekt.Upgrade
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope

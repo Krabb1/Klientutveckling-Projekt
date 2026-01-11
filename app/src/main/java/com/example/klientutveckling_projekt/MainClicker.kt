@@ -1,14 +1,11 @@
 package com.example.klientutveckling_projekt
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
-import androidx.fragment.app.viewModels
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,12 +13,15 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
 
 /**
- * Huvudklassen för spelet
+ * MainClicker är huvud gameplay-fragmentet där användaren klickar
+ * för att gräva ner meter och generera meter per sekund.
  *
- * Hämtar live data från ClickRepository för att uppdatera värden för meter och meter per sekund
+ * Den obversverar meter-relaterade state:n från [SharedViewModel]
+ * och uppdaterar UI:t via lifecycle-enliga korutiner.
  */
-class MainClicker: Fragment() {
+class MainClicker : Fragment() {
 
+    /** Repository som hanterar "meter persistence" */
     private lateinit var repository: ClickRepository
 
     private lateinit var leaderboardRepository: LeaderboardRepository
@@ -37,38 +37,51 @@ class MainClicker: Fragment() {
     ): View {
         repository = ClickRepository(requireContext())
         leaderboardRepository = LeaderboardRepository(requireContext())
+
         val view = inflater.inflate(R.layout.fragment_main_clicker, container, false)
 
-        val clickableGround = view.findViewById<View>(R.id.ground_view)
-        val meterCounter = view.findViewById<TextView>(R.id.click_counter)
+        setupClickHandling(view)
+        observeMeters(view)
+        observeMetersPerSecond(view)
 
+        return view
+    }
+
+    private fun setupClickHandling(view: View) {
+        val clickableGround = view.findViewById<View>(R.id.ground_view)
         clickableGround.setOnClickListener {
             viewModel.click()
         }
-
-    viewLifecycleOwner.lifecycleScope.launch {
-        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-            viewModel.meters.collect { meters: Double ->
-                meterCounter.text = getString(R.string.MetersDigged, meters)
-                leaderboardRepository.updateScore(meters)
-            }
-        }
     }
 
-
-        val metersPerSecondCounter = view.findViewById<TextView>(R.id.meterPerSecondsCounter)
+    private fun observeMeters(view: View) {
+        val meterCounter = view.findViewById<TextView>(R.id.click_counter)
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.metersPerSecond.collect { meters: Double ->
-                    metersPerSecondCounter.text = getString(R.string.meters_per_second, meters)
+                viewModel.meters.collect { meters ->
+                    meterCounter.text =
+                        getString(R.string.meters_digged_format, meters)
+
+                    leaderboardRepository.updateScore(meters)
                 }
             }
         }
+    }
 
-        return view
+    private fun observeMetersPerSecond(view: View) {
+        val metersPerSecondCounter =
+            view.findViewById<TextView>(R.id.meterPerSecondsCounter)
 
-
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.metersPerSecond.collect { metersPerSecond ->
+                    metersPerSecondCounter.text =
+                        getString(R.string.meters_per_second_format, metersPerSecond)
+                }
+            }
+        }
     }
 }
+
 
