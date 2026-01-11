@@ -1,5 +1,10 @@
 package com.example.klientutveckling_projekt
 
+/**
+ * Dataklass för uppgraderingar
+ *
+ * Specifierar de olika variablerna en uppgradering kan ha
+ */
 data class Upgrade(
     val id: Int,
     val name: String,

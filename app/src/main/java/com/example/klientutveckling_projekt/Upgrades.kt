@@ -14,6 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 
+/**
+ * Uppgraderingsfragmentet för appen DigInc
+ *
+ * Hanterar uppdatering av data för multiplier och totala meter genom ClickRepository
+ */
 class Upgrades : Fragment() {
 
     private val viewModel: SharedViewModel by activityViewModels {
@@ -45,8 +50,8 @@ class Upgrades : Fragment() {
 
         val multiplierInUpgradestab = view.findViewById<TextView>(R.id.textCurrentMultiplierValue)
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.multiplier.collect { meters ->
-                multiplierInUpgradestab.text = "%.2f m".format(meters)
+            viewModel.multiplier.collect { multi ->
+                multiplierInUpgradestab.text = "%.2f m".format(multi)
             }
         }
 
@@ -58,8 +63,6 @@ class Upgrades : Fragment() {
                 currentMetersDigged.text = "%.2f m".format(meters)
             }
         }
-
-        //view.findViewById<>()
 
         return view
     }
