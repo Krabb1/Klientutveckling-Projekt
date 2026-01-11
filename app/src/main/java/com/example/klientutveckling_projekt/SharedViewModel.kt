@@ -1,17 +1,22 @@
 package com.example.klientutveckling_projekt
 
+import androidx.compose.ui.unit.min
 import com.example.klientutveckling_projekt.Upgrade
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.first
+
 
 class SharedViewModel(
     private val repository: ClickRepository
 ) : ViewModel() {
 
-
+private companion object{
+    private const val MAX_OFFLINEPROGRESS: Long = 8*60*60
+}
 
     public val allUpgrades = listOf(
         Upgrade(1, "Faster Clicks", "More meters per click", 1.1, 10.0),
@@ -55,6 +60,7 @@ class SharedViewModel(
 
 
     init {
+        applyOfflineProgress()
         startPassiveIncome()
     }
 
@@ -69,6 +75,41 @@ class SharedViewModel(
             }
         }
     }
+
+    private fun applyOfflineProgress(){
+        viewModelScope.launch {
+            try {
+                val lastActive = repository.getLastActiveTime()
+                val now = System.currentTimeMillis()
+                if (lastActive <= 0L){
+                    repository.setLastActiveTime(now)
+                    return@launch
+                }
+
+                val rawSecondsOffline = (now - lastActive) / 1000.0
+                if (rawSecondsOffline <= 0.0){
+                    repository.setLastActiveTime(now)
+                    return@launch
+                }
+
+                val secondsOffline = Math.min(rawSecondsOffline, MAX_OFFLINEPROGRESS.toDouble())
+
+                val mps = repository.getMetersPerSecondOnce()
+
+                val earned = secondsOffline * mps
+
+                if (earned > 0.0){
+                    repository.addMeters(earned)
+                }
+
+                repository.setLastActiveTime(now)
+            } catch (e: Exception){
+                e.printStackTrace()
+            }
+        }
+    }
+
+
 
     fun click() {
         viewModelScope.launch {

@@ -5,8 +5,10 @@ import androidx.compose.ui.input.key.Key
 import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class ClickRepository(private val context: Context) {
@@ -16,6 +18,8 @@ class ClickRepository(private val context: Context) {
         val METERS_PER_SECOND = doublePreferencesKey("meters_per_second")
 
         //val MULTI = doublePreferencesKey("multiplier")
+
+        val LAST_ACTIVE = longPreferencesKey("last_active_timestamp")
 
         val PURCHASED_UPGRADES = stringSetPreferencesKey("purchased_upgrades")
     }
@@ -62,6 +66,25 @@ class ClickRepository(private val context: Context) {
             it[Keys.METERS] = (current - amount).coerceAtLeast(0.0)
         }
     }
+
+    suspend fun updateLastActive(timeStamp: Long){
+        context.dataStore.edit {
+            it[Keys.LAST_ACTIVE] = timeStamp
+        }
+    }
+
+    suspend fun getLastActiveTime(): Long = context.dataStore.data
+        .map { prefs -> prefs[Keys.LAST_ACTIVE] ?: 0L }
+        .first()
+
+    suspend fun setLastActiveTime(timeStamp: Long){
+        context.dataStore.edit { prefs ->
+            prefs[Keys.LAST_ACTIVE] = timeStamp
+        }
+    }
+
+    suspend fun getMetersPerSecondOnce(): Double = context.dataStore.data
+        .map { prefs -> prefs[Keys.METERS_PER_SECOND] ?: 0.0}.first()
 
 
     suspend fun reset(){
