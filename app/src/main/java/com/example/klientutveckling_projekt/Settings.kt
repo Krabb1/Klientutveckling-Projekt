@@ -16,6 +16,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlin.getValue
 
+
 /**
  * Fragmentet för inställningar i appen
  *
@@ -61,8 +62,8 @@ class Settings : Fragment() {
     }
 
     override fun onDestroy() {
-        job.cancel()
         super.onDestroy()
+        job.cancel()
     }
 
 }

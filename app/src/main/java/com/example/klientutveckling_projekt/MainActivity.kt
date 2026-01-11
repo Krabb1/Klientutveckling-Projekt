@@ -29,6 +29,8 @@ import androidx.fragment.app.activityViewModels
  */
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var backgroundMusicManager: BackgroundMusicManager
+
     lateinit var repository: ClickRepository
 
 
@@ -53,6 +55,13 @@ class MainActivity : AppCompatActivity() {
 
         repository = ClickRepository(applicationContext)
 
+        backgroundMusicManager = BackgroundMusicManager(applicationContext)
+
+    }
+
+    override fun onStart(){
+        super.onStart()
+        backgroundMusicManager.playBackgroundMusic()
     }
 
 
@@ -62,10 +71,18 @@ class MainActivity : AppCompatActivity() {
      * Får ClickRepository att spara den tid vid punkten då appen kallar onStop, säkert även om appen kraschar
      */
     override fun onStop() {
-        super.onStop()
 
         lifecycleScope.launch {
             repository.setLastActiveTime(System.currentTimeMillis())
         }
+
+        backgroundMusicManager.pauseBackgroundMusic()
+
+        super.onStop()
+    }
+
+    override fun onDestroy(){
+        backgroundMusicManager.stopBackgroundMusic()
+        super.onDestroy()
     }
 }
