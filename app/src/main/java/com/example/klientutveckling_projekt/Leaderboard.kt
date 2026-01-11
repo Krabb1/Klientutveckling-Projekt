@@ -101,10 +101,10 @@ class Leaderboard : Fragment(R.layout.fragment_leaderboard) {
         leaderboardRef.child(userId).setValue(userData)
     }
 
-    fun updateScore(newScore: Int) {
-        val userId = getOrCreateUserId()
-        leaderboardRef.child(userId).child("score").setValue(newScore)
-    }
+//    fun updateScore(newScore: Int) {
+//        val userId = getOrCreateUserId()
+//        leaderboardRef.child(userId).child("score").setValue(newScore)
+//    }
 
     /**
      * Hämtar leaderboard-data från Firebase
