@@ -15,6 +15,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
 
+/**
+ * Huvudklassen för spelet
+ *
+ * Hämtar live data från ClickRepository för att uppdatera värden för meter och meter per sekund
+ */
 class MainClicker: Fragment() {
 
     private lateinit var repository: ClickRepository

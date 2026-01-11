@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
 
         lifecycleScope.launch {
-            repository.updateLastActive(System.currentTimeMillis())
+            repository.setLastActiveTime(System.currentTimeMillis())
         }
     }
 }
