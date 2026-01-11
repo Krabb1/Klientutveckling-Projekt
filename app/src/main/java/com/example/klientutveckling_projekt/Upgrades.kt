@@ -1,12 +1,10 @@
 package com.example.klientutveckling_projekt
 
-import com.example.klientutveckling_projekt.Upgrade
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -46,7 +44,7 @@ class Upgrades : Fragment() {
         val multiplierInUpgradestab = view.findViewById<TextView>(R.id.textCurrentMultiplierValue)
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.multiplier.collect { meters ->
-                multiplierInUpgradestab.text = "%.2f m".format(meters)
+                multiplierInUpgradestab.text = "x%.2f".format(meters)
             }
         }
 
