@@ -59,6 +59,7 @@ class Upgrades : Fragment() {
             }
         }
 
+        //view.findViewById<>()
 
         return view
     }

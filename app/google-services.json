@@ -1,13 +1,33 @@
 {
   "project_info": {
-    "project_number": "564910600938",
-    "project_id": "digging-inc",
-    "storage_bucket": "digging-inc.firebasestorage.app"
+    "project_number": "687783786602",
+    "firebase_url": "https://fir-workshop-ab6b8-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "fir-workshop-ab6b8",
+    "storage_bucket": "fir-workshop-ab6b8.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:564910600938:android:8d65a523e811f33e6ddd93",
+        "mobilesdk_app_id": "1:687783786602:android:cec8faf93b3001a8f4f213",
+        "android_client_info": {
+          "package_name": "com.example.firebasechat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABSi2RxdZ2sMUPMy2pmwlC_aX74Imo0_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687783786602:android:97f08c21040eb9abf4f213",
         "android_client_info": {
           "package_name": "com.example.klientutveckling_projekt"
         }
@@ -15,7 +35,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA-DB8zcsie9tjpyBWPBqo5YnHSE3w91TE"
+          "current_key": "AIzaSyABSi2RxdZ2sMUPMy2pmwlC_aX74Imo0_A"
         }
       ],
       "services": {
