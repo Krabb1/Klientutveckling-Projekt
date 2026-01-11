@@ -5,6 +5,7 @@ import android.content.Context
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.provider.MediaStore
+import kotlinx.coroutines.flow.Flow
 
 class BackgroundMusicManager(private val context: Context){
 
@@ -23,6 +24,10 @@ class BackgroundMusicManager(private val context: Context){
         if (mediaPlayer.isPlaying){
             mediaPlayer.pause()
         }
+    }
+
+    fun setVolume(volume: Float){
+        mediaPlayer.setVolume(volume, volume)
     }
 
     fun stopBackgroundMusic(){

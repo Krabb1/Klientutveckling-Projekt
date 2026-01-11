@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.SeekBar
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -44,8 +47,36 @@ class Settings : Fragment() {
             showPopUpMessageOnResetButton()
         }
 
+        val volumeSlider = view.findViewById<SeekBar>(R.id.musicVolumeSlider)
+        volumeSlider.max = 100
+
+        volumeSlider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if(fromUser){
+                    viewModel.setMusicVolume(progress / 100f)
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+            }
+        })
+
+        uiScope.launch(Dispatchers.IO){
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.musicVolume.collect { volume ->
+                    volumeSlider.progress = (volume * 100).toInt()
+                }
+            }
+        }
+
         return view
     }
+
 
     private fun showPopUpMessageOnResetButton(){
         AlertDialog.Builder(requireContext())

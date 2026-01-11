@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +22,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 import kotlin.getValue
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 
 /**
  * MainActivity som hostar bottom navigation drawer
@@ -28,6 +31,8 @@ import androidx.fragment.app.activityViewModels
  *
  */
 class MainActivity : AppCompatActivity() {
+
+    private val viewModel: SharedViewModel by viewModels()
 
     private lateinit var backgroundMusicManager: BackgroundMusicManager
 
@@ -57,12 +62,19 @@ class MainActivity : AppCompatActivity() {
 
         backgroundMusicManager = BackgroundMusicManager(applicationContext)
 
+        backgroundMusicManager.playBackgroundMusic()
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.musicVolume.collect { volume ->
+                    backgroundMusicManager.setVolume(volume)
+                }
+            }
+        }
+
     }
 
-    override fun onStart(){
-        super.onStart()
-        backgroundMusicManager.playBackgroundMusic()
-    }
+
 
 
     /**

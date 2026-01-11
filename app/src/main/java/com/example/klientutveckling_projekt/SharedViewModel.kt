@@ -21,6 +21,9 @@ class SharedViewModel(
 private companion object{
     private const val MAX_OFFLINEPROGRESS: Long = 8*60*60
 }
+    private val _musicVolume = MutableStateFlow(0.5f)
+    val musicVolume: StateFlow<Float> = _musicVolume.asStateFlow()
+
     init {
         applyOfflineProgress()
         startPassiveIncome()
@@ -61,6 +64,13 @@ private companion object{
         SharingStarted.Eagerly,
         0.0
     )
+
+    /**
+     * Ändrar _musicVolume som är Mutable för att updatera dess read-only counterpart
+     */
+    fun setMusicVolume(volume: Float){
+        _musicVolume.value = volume.coerceIn(0f, 1f)
+    }
 
     /**
      * Körs i Init block
