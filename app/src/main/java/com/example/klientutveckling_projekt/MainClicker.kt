@@ -21,10 +21,7 @@ import kotlinx.coroutines.launch
  */
 class MainClicker : Fragment() {
 
-    /** Repository som hanterar "meter persistence" */
     private lateinit var repository: ClickRepository
-
-    /** Repository som hanterar leaderboard-data */
     private lateinit var leaderboardRepository: LeaderboardRepository
 
     private val viewModel: SharedViewModel by activityViewModels {
@@ -48,9 +45,6 @@ class MainClicker : Fragment() {
         return view
     }
 
-    /**
-     * Hanterar klick på marken och triggar ett klick i ViewModel.
-     */
     private fun setupClickHandling(view: View) {
         val clickableGround = view.findViewById<View>(R.id.ground_view)
         clickableGround.setOnClickListener {
@@ -58,10 +52,6 @@ class MainClicker : Fragment() {
         }
     }
 
-    /**
-     * Observerar totalt antal grävda meter och uppdaterar UI:t
-     * med vetenskaplig/engineering-formatering.
-     */
     private fun observeMeters(view: View) {
         val meterCounter = view.findViewById<TextView>(R.id.click_counter)
 
@@ -80,10 +70,6 @@ class MainClicker : Fragment() {
         }
     }
 
-    /**
-     * Observerar meter per sekund och uppdaterar UI:t
-     * med vetenskaplig/engineering-formatering.
-     */
     private fun observeMetersPerSecond(view: View) {
         val metersPerSecondCounter =
             view.findViewById<TextView>(R.id.meterPerSecondsCounter)

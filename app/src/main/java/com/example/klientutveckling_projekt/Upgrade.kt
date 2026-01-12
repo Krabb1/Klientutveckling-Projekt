@@ -11,5 +11,6 @@ data class Upgrade(
     val description: String,
     val multiplier: Double,
     val cost: Double,
-    val metersPerSecondBonus: Double = 0.0
+    val metersPerSecondBonus: Double = 0.0,
+    val flatClickBonus: Double = 0.0
 )
