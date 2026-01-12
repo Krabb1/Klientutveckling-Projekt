@@ -54,7 +54,7 @@ class Upgrades : Fragment() {
         val multiplierInUpgradestab = view.findViewById<TextView>(R.id.textCurrentMultiplierValue)
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.multiplier.collect { multi ->
-                multiplierInUpgradestab.text = "%.2f m".format(multi)
+                multiplierInUpgradestab.text = "x%.2f".format(multi)
             }
         }
 
@@ -63,7 +63,7 @@ class Upgrades : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.meters.collect { meters ->
-                currentMetersDigged.text = "%.2f m".format(meters)
+                currentMetersDigged.text = "%.2f".format(meters)
             }
         }
 
