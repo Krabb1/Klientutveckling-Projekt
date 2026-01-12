@@ -13,4 +13,6 @@
     <string name="create_account">Create account</string>
     <string name="leaderboard_title">LEADERBOARD</string>
     <string name="buy">Buy</string>
+    <string name="reset">Reset?</string>
+    <string name="music_volume">Music Volume</string>
 </resources>

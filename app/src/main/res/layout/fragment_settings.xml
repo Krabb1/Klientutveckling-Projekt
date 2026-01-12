@@ -21,10 +21,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/music_volume"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/settingsTitle"
+        app:layout_constraintVertical_bias="0.442" />
+
     <SeekBar
         android:id="@+id/musicVolumeSlider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:progressDrawable="@drawable/seekbar_volume"
         android:max="100"
         app:layout_constraintBottom_toTopOf="@+id/resetButton"
         app:layout_constraintTop_toBottomOf="@+id/settingsTitle" />
@@ -36,7 +50,8 @@
         android:layout_marginBottom="32dp"
         android:backgroundTint="#b42121"
         android:textColor="@color/white"
-        android:text="Reset?"
+        android:textSize="20sp"
+        android:text="@string/reset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
