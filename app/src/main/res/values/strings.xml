@@ -10,6 +10,6 @@
     <string name="current_meters_VALUE">0.00 m</string>
     <string name="settings_title">SETTINGS</string>
     <string name="meters_per_second">Meters per second: %.2f</string>
-    <string name="skapa_konto">Skapa Konto</string>
+    <string name="create_account">Create account</string>
     <string name="leaderboard_title">LEADERBOARD</string>
 </resources>

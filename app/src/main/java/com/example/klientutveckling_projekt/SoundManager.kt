@@ -13,7 +13,6 @@ class BackgroundMusicManager(private val context: Context){
         isLooping = true
     }
 
-
     fun playBackgroundMusic(){
         if (!mediaPlayer.isPlaying){
             mediaPlayer.start()

@@ -76,16 +76,16 @@ class Leaderboard : Fragment(R.layout.fragment_leaderboard) {
 
     private fun showCreateAccountDialog() {
         val editText = EditText(requireContext())
-        editText.hint = "Användarnamn"
+        editText.hint = "Username"
 
         AlertDialog.Builder(requireContext())
-            .setTitle("Skapa Konto")
+            .setTitle("Create account")
             .setView(editText)
-            .setPositiveButton("Spara") { _, _ ->
+            .setPositiveButton("Save") { _, _ ->
                 val username = editText.text.toString().trim()
                 if (username.isNotEmpty()) {saveUser(username)}
             }
-            .setNegativeButton("Avbryt", null)
+            .setNegativeButton("Cancel", null)
             .show()
 
     }
@@ -123,7 +123,6 @@ class Leaderboard : Fragment(R.layout.fragment_leaderboard) {
 
                         list.add(PlayerScore(0, username, score))
                     }
-
                     // Realtime DB returnerar lägsta score först
                     list.sortByDescending { it.score }
 
