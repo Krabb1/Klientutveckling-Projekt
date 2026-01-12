@@ -41,11 +41,17 @@ class UpgradeAdapter(
         holder.name.text = upgrade.name
         holder.description.text = upgrade.description
 
+        // Cost always scientific
         holder.cost.text =
             "Cost: ${formatScientific(upgrade.cost)} meters"
 
+        // 🔹 DIFFERENT DISPLAY BASED ON UPGRADE TYPE
         holder.multiplier.text =
-            "Multiplier: x${upgrade.multiplier}"
+            if (upgrade.metersPerSecondBonus > 0.0) {
+                "+${formatScientific(upgrade.metersPerSecondBonus)} meters / second"
+            } else {
+                "Click power: x${upgrade.multiplier}"
+            }
 
         holder.button.setOnClickListener {
             if (viewModel.buyUpgrade(upgrade)) {

@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/leaderboard"
-        android:icon="@drawable/leaderboard_icon"
-        android:title="Leaderboard"/>
-
-    <item
         android:id="@+id/mainClicker"
         android:icon="@drawable/hand_home_icon"
-        android:title="Home"/>
+        android:title="@string/Clicker_text"/>
 
     <item
         android:id="@+id/upgrades"
         android:icon="@drawable/upgrade_icon"
-        android:title="Upgrades"/>
+        android:title="@string/Upgrades_text"/>
+
+    <item
+        android:id="@+id/leaderboard"
+        android:icon="@drawable/leaderboard_icon"
+        android:title="@string/Leaderboard_text"/>
 
     <item
         android:id="@+id/settings"
         android:icon="@drawable/settings_symbol"
-        android:title="Settings"/>
+        android:title="@string/Settings_text"/>
 </menu>
