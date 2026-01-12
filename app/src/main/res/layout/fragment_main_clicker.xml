@@ -8,9 +8,6 @@
     android:id="@+id/mainClickerConstraintLayout"
     tools:context=".MainClicker">
 
-
-
-
     <LinearLayout
         android:id="@+id/LinearLayout_within_constraintLayout"
         android:layout_width="match_parent"
@@ -31,17 +28,14 @@
             android:layout_weight="3"
             android:background="@drawable/dirt_image" />
 
-
     </LinearLayout>
-
-
 
     <TextView
         android:id="@+id/click_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Meters:"
+        android:text="@string/meters"
         android:textSize="24sp"
         android:textColor="@color/white"
         android:background="@color/black"
@@ -56,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@color/black"
-        android:text="Meters per second: "
+        android:text="@string/meters_per_second"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

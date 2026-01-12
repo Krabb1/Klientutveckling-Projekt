@@ -15,4 +15,5 @@
     <string name="buy">Buy</string>
     <string name="reset">Reset?</string>
     <string name="music_volume">Music Volume</string>
+    <string name="meters">Meters:</string>
 </resources>
