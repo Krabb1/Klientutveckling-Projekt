@@ -48,6 +48,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    applicationVariants.all {
+        outputs.all {
+            val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+            output.outputFileName = "${rootProject.name}-${name}-${versionName}.apk"
+        }
+    }
+
 }
 
 dependencies {

@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Klientutveckling-Projekt"
+rootProject.name = "DigInc"
 include(":app")
