@@ -61,6 +61,11 @@ class Leaderboard : Fragment(R.layout.fragment_leaderboard) {
             .setOnClickListener { showCreateAccountDialog() }
     }
 
+    /**
+     * Hämtar användar id
+     *
+     * Om ett id ej finns skapar den ett
+     */
     private fun getOrCreateUserId(): String {
         val prefs = requireContext()
             .getSharedPreferences("leaderboard_prefs", Context.MODE_PRIVATE)
@@ -74,6 +79,9 @@ class Leaderboard : Fragment(R.layout.fragment_leaderboard) {
         return userId
     }
 
+    /**
+     * Skapar dialog rutan för att skriva in sitt användarnamn i leaderboard fragmentet
+     */
     private fun showCreateAccountDialog() {
         val editText = EditText(requireContext())
         editText.hint = "Username"
@@ -90,6 +98,9 @@ class Leaderboard : Fragment(R.layout.fragment_leaderboard) {
 
     }
 
+    /**
+     * Sparar namnet på användaren och skickar vidare till databasen
+     */
     private fun saveUser(username: String) {
         val userId = getOrCreateUserId()
 

@@ -58,8 +58,10 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav.setupWithNavController(navController)
 
+        //ger repositoryt applicationContext för att ge den åtokomst
         repository = ClickRepository(applicationContext)
 
+        //Kod för att initiera bakgrundsmusiken när appen först startar
         backgroundMusicManager = BackgroundMusicManager(applicationContext)
 
         backgroundMusicManager.playBackgroundMusic()
@@ -93,6 +95,11 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
     }
 
+    /**
+     * Överskuggar onDestroy metoden för Activity
+     *
+     * Stoppar bakgrundsmusiken när appen förstörs
+     */
     override fun onDestroy(){
         backgroundMusicManager.stopBackgroundMusic()
         super.onDestroy()

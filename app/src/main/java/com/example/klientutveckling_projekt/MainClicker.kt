@@ -45,6 +45,9 @@ class MainClicker : Fragment() {
         return view
     }
 
+    /**
+     * Hjälpmetod som skickar vidare klickningar till SharedViewModel
+     */
     private fun setupClickHandling(view: View) {
         val clickableGround = view.findViewById<View>(R.id.ground_view)
         clickableGround.setOnClickListener {
@@ -52,6 +55,11 @@ class MainClicker : Fragment() {
         }
     }
 
+    /**
+     * Hjälpmetod för att observera meter
+     *
+     * Hämtar automatiskt uppdateringar för meter värdet samt uppdaterar din score i leaderboarden
+     */
     private fun observeMeters(view: View) {
         val meterCounter = view.findViewById<TextView>(R.id.click_counter)
 
@@ -70,6 +78,11 @@ class MainClicker : Fragment() {
         }
     }
 
+    /**
+     * Hjälpmetod för att observera meter per sekund
+     *
+     * Hämtar automatiskt värdet på meter per sekund vid uppdateringar av den variabeln
+     */
     private fun observeMetersPerSecond(view: View) {
         val metersPerSecondCounter =
             view.findViewById<TextView>(R.id.meterPerSecondsCounter)

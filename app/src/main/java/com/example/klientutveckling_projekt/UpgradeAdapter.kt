@@ -71,6 +71,9 @@ class UpgradeAdapter(
         notifyDataSetChanged()
     }
 
+    /**
+     * Hjälpmetod för att formatera ett tal av typen Double
+     */
     fun formatMetersPerSecond(value: Double): String {
         return if (value < 1.0) {
             String.format("%.1f", value)
