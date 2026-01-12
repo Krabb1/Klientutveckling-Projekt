@@ -16,4 +16,8 @@
     <string name="reset">Reset?</string>
     <string name="music_volume">Music Volume</string>
     <string name="meters">Meters:</string>
+    <string name="Upgrades_text">Upgrades</string>
+    <string name="Leaderboard_text">Leaderboard</string>
+    <string name="Settings_text">Settings</string>
+    <string name="Clicker_text">Clicker</string>
 </resources>
