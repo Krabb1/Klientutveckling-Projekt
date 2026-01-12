@@ -1,13 +1,10 @@
 package com.example.klientutveckling_projekt
 
-import androidx.compose.ui.unit.min
-import com.example.klientutveckling_projekt.Upgrade
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.flow.first
 
 /**
  * SharedViewModel klassen som kopplar alla fragments logik
@@ -30,12 +27,43 @@ private companion object{
     }
 
     public val allUpgrades = listOf(
-        Upgrade(1, "Faster Clicks", "More meters per click", 1.1, 10.0),
-        Upgrade(2, "Stronger Drill", "Dig deeper", 1.25, 25.0),
-        Upgrade(3, "Turbo Mode", "Big boost", 1.5, 50.0),
-        Upgrade(4, "Mega Drill", "Huge boost", 2.0, 100.0),
-        Upgrade(5, "AutoDriller", "Passive drilling", 1.0, 10.0, 1.0)
+        Upgrade(1, "Calloused Hands", "Years of digging toughen your grip", 1.05, 10.0),
+        Upgrade(2, "Sharpened Shovel", "A cleaner edge cuts through soil faster", 1.1, 25.0),
+        Upgrade(3, "Steel Pickaxe", "Break through compact ground", 1.15, 50.0),
+        Upgrade(4, "Reinforced Boots", "Better footing for stronger strikes", 1.2, 90.0),
+        Upgrade(5, "Miner’s Gloves", "Grip reduces wasted effort", 1.25, 150.0),
+
+        Upgrade(6, "Hand Crank Drill", "Manual drilling improves efficiency", 1.3, 250.0),
+        Upgrade(7, "Hardened Drill Bit", "Cuts through rock layers", 1.35, 400.0),
+        Upgrade(8, "Steam-Powered Drill", "Industrial-era digging power", 1.4, 650.0),
+        Upgrade(9, "Pressure Valves", "Sustained drilling without slowdown", 1.45, 1_000.0),
+        Upgrade(10, "Early Automation", "Basic machinery works on its own", 1.0, 1_500.0, 0.5),
+
+        Upgrade(11, "Electric Drill Rig", "Consistent high-speed drilling", 1.6, 2_200.0),
+        Upgrade(12, "Diamond-Tipped Bit", "Pierces the toughest rock", 1.7, 3_200.0),
+        Upgrade(13, "Hydraulic Pistons", "Massive force per strike", 1.8, 4_500.0),
+        Upgrade(14, "Subsurface Scanner", "Find weak spots underground", 1.9, 6_000.0),
+        Upgrade(15, "Automated Drill Arm", "Machines dig even while you rest", 1.0, 8_000.0, 1.5),
+
+        Upgrade(16, "Tunnel Stabilizers", "Deeper digs without collapse", 2.0, 11_000.0),
+        Upgrade(17, "Plasma Cutter", "Melts rock on contact", 2.15, 15_000.0),
+        Upgrade(18, "Nano-Coated Bits", "Near-zero friction drilling", 2.3, 20_000.0),
+        Upgrade(19, "AI Dig Optimization", "Perfect drilling angles every time", 2.45, 27_000.0),
+        Upgrade(20, "Self-Replicating Drones", "Autonomous swarm drilling", 1.0, 35_000.0, 3.0),
+
+        Upgrade(21, "Magma-Resistant Hull", "Dig safely near the mantle", 2.6, 45_000.0),
+        Upgrade(22, "Seismic Resonator", "Shatter rock with vibrations", 2.8, 60_000.0),
+        Upgrade(23, "Core Pressure Adaptors", "Survive crushing depths", 3.0, 80_000.0),
+        Upgrade(24, "Antimatter Drill Head", "Erase matter effortlessly", 3.3, 110_000.0),
+        Upgrade(25, "Planetary Bore Engine", "Industrial-scale planetary drilling", 1.0, 150_000.0, 6.0),
+
+        Upgrade(26, "Graviton Stabilizer", "Ignore gravity’s limits", 3.6, 200_000.0),
+        Upgrade(27, "Dimensional Excavator", "Dig between layers of reality", 4.0, 275_000.0),
+        Upgrade(28, "Core Extraction Matrix", "Harvest energy from the planet’s heart", 4.5, 375_000.0),
+        Upgrade(29, "Singularity Drill", "Infinite pressure at a single point", 5.0, 500_000.0),
+        Upgrade(30, "Worldbreaker Protocol", "The planet yields completely", 1.0, 750_000.0, 12.0)
     )
+
 
     val purchasedUpgrades: StateFlow<Set<Int>> = repository.purchasedUpgrades
         .stateIn(viewModelScope, SharingStarted.Eagerly, emptySet())
