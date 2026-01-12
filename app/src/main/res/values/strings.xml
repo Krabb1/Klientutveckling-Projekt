@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Klientutveckling-Projekt</string>
+    <string name="app_name">DigInc</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="upgradesTitle">UPGRADES</string>
     <string name="meters_digged_formats">Total Meters: %s</string>
