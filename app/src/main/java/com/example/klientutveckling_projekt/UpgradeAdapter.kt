@@ -48,7 +48,7 @@ class UpgradeAdapter(
         // 🔹 DIFFERENT DISPLAY BASED ON UPGRADE TYPE
         holder.multiplier.text =
             if (upgrade.metersPerSecondBonus > 0.0) {
-                "+${formatScientific(upgrade.metersPerSecondBonus)} meters / second"
+                "+${formatMetersPerSecond(upgrade.metersPerSecondBonus)} meters / second"
             } else {
                 "Click power: x${upgrade.multiplier}"
             }
@@ -70,4 +70,13 @@ class UpgradeAdapter(
         upgrades.addAll(newList)
         notifyDataSetChanged()
     }
+
+    fun formatMetersPerSecond(value: Double): String {
+        return if (value < 1.0) {
+            String.format("%.1f", value)
+        } else {
+            formatScientific(value)
+        }
+    }
+
 }
