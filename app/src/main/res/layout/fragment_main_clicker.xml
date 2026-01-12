@@ -38,7 +38,7 @@
         android:text="@string/meters"
         android:textSize="24sp"
         android:textColor="@color/white"
-        android:background="@color/black"
+        android:fontFamily="@font/leander"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,14 +48,13 @@
         android:id="@+id/meterPerSecondsCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@color/black"
+        android:layout_marginBottom="32dp"
         android:text="@string/meters_per_second"
         android:textColor="@color/white"
+        android:fontFamily="@font/leander"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/click_counter" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
