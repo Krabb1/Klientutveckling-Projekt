@@ -14,7 +14,7 @@ import kotlin.math.pow
  *  - 2_000_000_000 -> "2.00B"
  */
 fun formatScientific(value: Double): String {
-    if (value < 1000) return value.toInt().toString()
+    if (value < 1000) return String.format("%.2f", value)
 
     val units = listOf("", "k", "M", "B", "T", "Qa", "Qi")
     val exponent = floor(log10(value) / 3)
