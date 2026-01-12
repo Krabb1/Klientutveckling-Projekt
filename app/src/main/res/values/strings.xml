@@ -4,6 +4,8 @@
     <string name="upgradesTitle">UPGRADES</string>
     <string name="meters_digged_formats">Total Meters: %s</string>
     <string name="meters_per_second_format">Meters / Second: %s</string>
+    <string name="multiplier_in_upgrades_fragment">x%.2f</string>
+    <string name="meters_dug_in_upgrades_fragment">%s</string>
     <string name="current_multiplier">Multiplier</string>
     <string name="current_multiplier_VALUE">x1.0</string>
     <string name="current_meters">Meters</string>
