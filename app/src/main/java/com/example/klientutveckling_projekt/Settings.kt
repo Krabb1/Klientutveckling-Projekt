@@ -77,7 +77,9 @@ class Settings : Fragment() {
         return view
     }
 
-
+    /**
+     * Hjälpmetod för att låta reset knappen få fram en ruta som frågar användaren om den är säker
+     */
     private fun showPopUpMessageOnResetButton(){
         AlertDialog.Builder(requireContext())
             .setTitle("Reset progress?")
@@ -92,6 +94,9 @@ class Settings : Fragment() {
 
     }
 
+    /**
+     * Överskuggad onDestroy metod som avslutar klassens Coroutine för att inte få minnesläcka
+     */
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
